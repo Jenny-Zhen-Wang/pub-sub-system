@@ -26,9 +26,9 @@ func NewPeerMgr(localAddr string) *PeerMgr {
 
 func (mgr *PeerMgr) Put(addr string, peer *PeerConn) {
 	if addr == mgr.localAddr {
-		panic("local addr can not be put")
+		panic("[ERROR] Local address cannot be same")
 	}
-	fmt.Printf("keep connection from %s (%s)\n", addr, peer.conn.RemoteAddr())
+	fmt.Printf("[LOG] Connection from %s (%s)\n", addr, peer.conn.RemoteAddr())
 	mgr.mu.Lock()
 	defer mgr.mu.Unlock()
 	if oldConn, ok := mgr.peers[addr]; ok {
@@ -47,7 +47,7 @@ func (mgr *PeerMgr) handlePeerMsg(addr string, peer *PeerConn) {
 			peer.Close()
 			break
 		}
-		fmt.Printf("peer: %s sends %v\n", peer.conn.RemoteAddr(), msg)
+		fmt.Printf("[LOG] Peer: %s sends %v\n", peer.conn.RemoteAddr(), msg)
 		mgr.ch <- msg
 	}
 	mgr.ch <- &domain.Message{
