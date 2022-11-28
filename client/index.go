@@ -12,10 +12,10 @@ import (
 )
 
 func Run(serverAddr string, peerAddrs []string) {
-	fmt.Println("client starts")
+	fmt.Println("[LOG] Initializing the client ...")
 	conn, err := net.Dial("tcp", serverAddr)
 	if err != nil {
-		fmt.Println("error connecting to server")
+		fmt.Println("[ERROR] Error when connecting to server")
 		peerAddrs = append(peerAddrs[1:], peerAddrs[0])
 		serverAddr = peerAddrs[0]
 		Run(serverAddr, peerAddrs)
@@ -31,7 +31,7 @@ func Run(serverAddr string, peerAddrs []string) {
 		for {
 			err = decoder.Decode(&msg)
 			if err != nil {
-				fmt.Println("error receiving message from server")
+				fmt.Println("[ERROR] Error when receiving the message")
 				peerAddrs = append(peerAddrs[1:], peerAddrs[0])
 				serverAddr = peerAddrs[0]
 				Run(serverAddr, peerAddrs)
@@ -45,7 +45,7 @@ func Run(serverAddr string, peerAddrs []string) {
 	}
 	err = encoder.Encode(initMsg)
 	if err != nil {
-		fmt.Println("error in sending message to server.")
+		fmt.Println("[ERROR] Error when sending the message")
 		peerAddrs = append(peerAddrs[1:], peerAddrs[0])
 		serverAddr = peerAddrs[0]
 		Run(serverAddr, peerAddrs)
@@ -53,16 +53,16 @@ func Run(serverAddr string, peerAddrs []string) {
 	}
 
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("Help: ")
-	fmt.Println("1. subscribe  : s <topic>")
-	fmt.Println("2. unsubscribe: u <topic>")
-	fmt.Println("3. publish    : p <topic> <message>")
+	fmt.Println("Supported Commands: ")
+	fmt.Println("-> Subscribe  : s <topic>")
+	fmt.Println("-> Unsubscribe: u <topic>")
+	fmt.Println("-> Publish    : p <topic> <message>")
 	for {
 		fmt.Print("> ")
 		text, _ := reader.ReadString('\n')
 		slices := strings.Split(strings.TrimSpace(text), " ")
 		if len(slices) < 2 {
-			fmt.Println("invalid command")
+			fmt.Println("[ERROR] Invalid command")
 			continue
 		}
 		msg := domain.Message{
@@ -76,14 +76,14 @@ func Run(serverAddr string, peerAddrs []string) {
 		case "p":
 			msg.Type = domain.Normal
 			if len(slices) < 3 {
-				fmt.Println("invalid command")
+				fmt.Println("[ERROR] Invalid command")
 				continue
 			}
 			msg.Content = strings.Join(slices[2:], " ")
 		}
 		err = encoder.Encode(&msg)
 		if err != nil {
-			fmt.Println("error sending message to server")
+			fmt.Println("[ERROR] Error when sending message")
 			peerAddrs = append(peerAddrs[1:], peerAddrs[0])
 			serverAddr = peerAddrs[0]
 			Run(serverAddr, peerAddrs)
