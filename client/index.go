@@ -16,6 +16,7 @@ func Run(serverAddr string, peerAddrs []string) {
 	conn, err := net.Dial("tcp", serverAddr)
 	if err != nil {
 		fmt.Println("[ERROR] Error when connecting to server")
+		fmt.Println("[LOG] Try connecting to server again...")
 		peerAddrs = append(peerAddrs[1:], peerAddrs[0])
 		serverAddr = peerAddrs[0]
 		Run(serverAddr, peerAddrs)
