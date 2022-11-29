@@ -21,7 +21,7 @@ The servers are able to communicate with each other, and the clients as well. Se
 From the server side, if the topic is being updated, the leader should broadcast this update to all the follower. If it is the follower who got this message, it will firstly report this update to the leader, then the leader will repeat the broadcast process.
 
 # Install
-Before you clone or download the project via git or manually. Make sure the version of `Go` in your local machine is consistent with `Go.mod`
+Before you clone or download the project via git or other methods manually. Make sure the version of `Go` in your local machine is consistent with `Go.mod`
 
 # Architecture
 ```yaml
