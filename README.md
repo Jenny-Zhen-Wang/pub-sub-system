@@ -78,16 +78,16 @@ Based on the hint previously, we do a sample for demonstrate:
 `u Music`
 
 # Maintainers
-[@Eyjan-Huang](https://github.com/Eyjan-Huang)
-[@Jingyi96](https://github.com/Jingyi96)
-[@Jenny](https://github.com/Jenny-Zhen-Wang)
+- [@Eyjan-Huang](https://github.com/Eyjan-Huang)
+- [@Jingyi96](https://github.com/Jingyi96)
+- [@Jenny](https://github.com/Jenny-Zhen-Wang)
 
 # Acknowledgment
 We all sincerely appreciate the academic materials provided by Prof. Moazzeni. Also we acclaim the help provided by [@ninomiyx](https://github.com/ninomiyx) for providing us a general framework of how pub/sub system work. We honestly acclaim how complicated when implementing such system in programming language.
 
 # Reference
-[What is Pub/Sub?](https://cloud.google.com/pubsub/docs/overview)
-[Publish-subscribe pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)
-[python-pubsub](https://github.com/googleapis/python-pubsub)
+1. [What is Pub/Sub?](https://cloud.google.com/pubsub/docs/overview)
+2. [Publish-subscribe pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)
+3. [python-pubsub](https://github.com/googleapis/python-pubsub)
 
 
