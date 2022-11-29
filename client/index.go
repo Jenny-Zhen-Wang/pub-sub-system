@@ -54,10 +54,13 @@ func Run(serverAddr string, peerAddrs []string) {
 	}
 
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("Supported Commands: ")
-	fmt.Println("-> Subscribe  : s <topic>")
-	fmt.Println("-> Unsubscribe: u <topic>")
-	fmt.Println("-> Publish    : p <topic> <message>")
+	hint := "\nSupported Commands:\n" +
+		"-> Subscribe: s <topic>\n" +
+		"-> Publish: p <topic> <content>\n" +
+		"-> Unsubscribe: u <topic>\n"
+
+	fmt.Println(hint)
+
 	for {
 		fmt.Print("> ")
 		text, _ := reader.ReadString('\n')
