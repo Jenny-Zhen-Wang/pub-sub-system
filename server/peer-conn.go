@@ -32,6 +32,7 @@ func NewPeerFromAddr(addr string, localAddr string) (*PeerConn, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	peerConn := NewPeerFromConn(conn)
 
 	err = peerConn.Write(&domain.HandshakeMessage{
@@ -46,16 +47,16 @@ func NewPeerFromAddr(addr string, localAddr string) (*PeerConn, error) {
 	return peerConn, nil
 }
 
-func (p *PeerConn) Write(msg interface{}) error {
-	err := p.enc.Encode(msg)
+func (p *PeerConn) Read(msg interface{}) error {
+	err := p.dec.Decode(msg)
 	if err != nil {
 		p.Close()
 	}
 	return err
 }
 
-func (p *PeerConn) Read(msg interface{}) error {
-	err := p.dec.Decode(msg)
+func (p *PeerConn) Write(msg interface{}) error {
+	err := p.enc.Encode(msg)
 	if err != nil {
 		p.Close()
 	}

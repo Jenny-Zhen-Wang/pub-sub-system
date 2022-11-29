@@ -49,6 +49,7 @@ func (mgr *PeerMgr) handlePeerMsg(addr string, peer *PeerConn) {
 		fmt.Printf("[LOG] Peer: %s sends %v\n", peer.conn.RemoteAddr(), msg)
 		mgr.ch <- msg
 	}
+
 	mgr.ch <- &domain.Message{
 		Type:    domain.ReadClosed,
 		SrcAddr: addr,
@@ -63,10 +64,12 @@ func (mgr *PeerMgr) Get(addr string) (*PeerConn, error) {
 	peermutex(mgr)
 	if oldConn, ok := mgr.peers[addr]; !ok || oldConn.IsClosed() {
 		peerConn, err := NewPeerFromAddr(addr, mgr.localAddr)
+
 		if err != nil {
 			delete(mgr.peers, addr)
 			return nil, err
 		}
+
 		mgr.peers[addr] = peerConn
 		go mgr.handlePeerMsg(addr, peerConn)
 		return peerConn, nil
